@@ -54,9 +54,10 @@ func portHandler(headerName *string) http.HandlerFunc {
 
 func main() {
 	headerName := flag.String("realipheader", "", "name of the ip address header")
+	listenPort := flag.String("port", "3000", "server listen port")
 	flag.Parse()
 	http.HandleFunc("/{port}", portHandler(headerName))
 	http.HandleFunc("/health", healthHandler)
 
-	log.Fatal(http.ListenAndServe(":3000", nil))
+	log.Fatal(http.ListenAndServe(":"+*listenPort, nil))
 }
