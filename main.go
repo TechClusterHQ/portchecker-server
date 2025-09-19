@@ -49,7 +49,6 @@ func portHandler(headerName *string) http.HandlerFunc {
 		if h, _, err := net.SplitHostPort(host); err == nil {
 			host = h
 		}
-		fmt.Println(host)
 		portState := checkIP(host, port)
 		if portState {
 			w.Write([]byte("1"))
