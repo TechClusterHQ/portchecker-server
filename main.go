@@ -6,6 +6,7 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -31,6 +32,12 @@ func healthHandler(w http.ResponseWriter, r *http.Request) {
 func portHandler(headerName *string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		port := r.PathValue("port")
+		portInt, err := strconv.Atoi(port)
+		if err != nil || portInt < 1 || portInt > 65535 {
+			w.WriteHeader(http.StatusBadRequest)
+			w.Write([]byte("Invalid port"))
+			return
+		}
 		var host string
 		if *headerName != "" {
 			hosts := r.Header.Get(*headerName)
