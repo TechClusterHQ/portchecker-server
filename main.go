@@ -12,7 +12,7 @@ import (
 )
 
 func checkIP(host string, port string) bool {
-	conn, err := net.DialTimeout("tcp", net.JoinHostPort(host, port), time.Second)
+	conn, err := net.DialTimeout("tcp", net.JoinHostPort(host, port), 3*time.Second)
 	if err != nil {
 		return false
 	}
